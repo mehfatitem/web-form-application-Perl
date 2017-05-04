@@ -1,0 +1,38 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Kayıt Formu</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="icon" href="icon/signup.ico" type="image/x-icon" />
+</head>
+<body>
+	<a href="javascript:void(0)" id="list-user">Tüm Kullanıcıları Listele</a>
+	<h2>Kayıt Formu</h2>
+	<form id="signup-form" onclick="return false;">
+		<div class="form-group">
+			<label for="name">Ad</label>
+			<input class="form-control" id="name" name="name" type="text"/>
+		</div>
+		<div class="form-group">
+			<label for="surname">Soyad</label>
+			<input class="form-control" id="surname" name="surname" type="text"/>
+		</div>
+		<div class="form-group">
+			<label for="age">Yaş</label>
+			<input class="form-control" id="age" name="age" type="text"/>
+		</div>
+		<div class="form-group">
+			<label for="gender">Cinsiyet</label>
+			<select class="form-control" id="gender" name="gender">
+				<option id="male" value="1">Bay</option>
+				<option id="female" value="2">Bayan</option>
+			</select>
+		</div>
+		<input class="btn btn-default" id="save" name="save" type="submit" value="Kaydet"/>
+	</form>
+	<div id="result"></div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="js/signup.js"></script>
+</html>
