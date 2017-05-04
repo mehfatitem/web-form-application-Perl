@@ -11,51 +11,54 @@ my $cgi = new CGI();
 my $db = Database->new;
 my $func = Functions->new;
 
-print $cgi->header(-content_type => 'text/plain' ,  -charset => 'utf-8');
+if($cgi->param('operation') eq "listUser"){
+	print $cgi->header(-content_type => 'text/plain' ,  -charset => 'utf-8');
 
-my $gender = "";
-my $name = "";
-my $surname = "";
-my $age = "";
-my $class = "";
-my $counter = 0;
+	my $gender = "";
+	my $name = "";
+	my $surname = "";
+	my $age = "";
+	my $class = "";
+	my $counter = 0;
 
-my $template = "<table class='table table-bordered'><thead><tr><th>Ad</th><th>Soyad</th><th>Yaş</th><th>Cinsiyet</th></tr></thead><tbody>";
+	my $template = "<table class='table table-bordered'><caption><b>KULLANICI LİSTESİ</b></caption><thead><tr><th>Ad</th><th>Soyad</th><th>Yaş</th><th>Cinsiyet</th></tr></thead><tbody>";
 
-my $sth = $db->runSql("SELECT * FROM person ORDER BY id DESC");
+	my $sth = $db->runSql("SELECT * FROM person ORDER BY id DESC");
 
-while (my $result = $sth->fetchrow_hashref){
-	$name = $func->decodeUTF8($result->{name});
-	$surname = $func->decodeUTF8($result->{surname});
-	$age = $result->{age};
-	if($result->{gender} == 1){
-		$gender = "Bay";
+	while (my $result = $sth->fetchrow_hashref){
+		$name = $func->decodeUTF8($result->{name});
+		$surname = $func->decodeUTF8($result->{surname});
+		$age = $result->{age};
+		if($result->{gender} == 1){
+			$gender = "Bay";
+		}else{
+			$gender = "Bayan";
+		}
+		
+		if($counter % 5 == 0){
+			$class = "active";
+		}elsif($counter % 5 == 1){
+			$class = "success";
+		}elsif($counter % 5 == 2 ){
+			$class = "danger";
+		}elsif($counter % 5 == 3){
+			$class = "info";
+		}elsif($counter % 5 == 4){
+			$class = "warning";
+		}
+
+		$template .= "<tr class='".$class."'>";
+		$template .= "<td>".$name."</td><td>".$surname."<td>".$age."</td><td>".$gender."</td>";
+		$template .= "</tr>";
+		$counter++;
+	}
+	$template .= "</tbody>";
+	$template .= "</table>";
+
+	if($counter > 0){  
+		print $template;
 	}else{
-		$gender = "Bayan";
+		$func->displayMessage("warning" , "Herhangi bir kayıt bulunamadı!");
 	}
-	
-	if($counter % 5 == 0){
-		$class = "active";
-	}elsif($counter % 5 == 1){
-		$class = "success";
-	}elsif($counter % 5 == 2 ){
-		$class = "danger";
-	}elsif($counter % 5 == 3){
-		$class = "info";
-	}elsif($counter % 5 == 4){
-		$class = "warning";
-	}
-
-	$template .= "<tr class='".$class."'>";
-	$template .= "<td>".$name."</td><td>".$surname."<td>".$age."</td><td>".$gender."</td>";
-	$template .= "</tr>";
-	$counter++;
 }
-$template .= "</tbody>";
-$template .= "</table>";
 
-if($counter > 0){  
-	print $template;
-}else{
-	$func->displayMessage("warning" , "Herhangi bir kayıt bulunamadı!");
-}
