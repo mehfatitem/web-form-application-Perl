@@ -1,4 +1,4 @@
-﻿#!"c:\xampp\perl\bin\perl.exe"
+#!"c:\xampp\perl\bin\perl.exe"
 
 use strict;
 use warnings;
@@ -42,18 +42,15 @@ if($func->isPositiveInteger($age) eq "false"){
 if($func->isValExist($errorMessage) eq "true"){
 	$func->displayMessage("danger" , $errorMessage);
 }else{
-	my $conn = $db->openConn();
-	my $sth = $conn->prepare("Select * from person where name = '".$func->trim($name)."' and surname = '".$func->trim($surname)."'");
-	$sth->execute;
+	my $sth = $db->runSql("Select * from person where name = '".$func->trim($name)."' and surname = '".$func->trim($surname)."'");
 	my $rows = $sth->rows;
 	my $contact = "<b>".$func->trim($name)." ".$func->trim($surname)."</b>";
 	$contact = $func->decodeUTF8($contact);
 	if($rows>0){
-		$func->displayMessage("warning" , $contact." isimli kullanıcı sistemde mevcuttur!");
+	    $func->displayMessage("warning" , $contact." isimli kullanıcı sistemde mevcuttur!");
 	}else{
-	    my $sql = "INSERT INTO person (name,surname,age,gender) VALUES(?,?,?,?)";
-	    my $sth = $conn->prepare($sql);
-	    if($sth->execute($name, $surname, $age , $gender)){
+	    my $sth = $db->runSql("INSERT INTO person (name,surname,age,gender) VALUES('$name','$surname','$age', '$gender')");
+	    if($sth){
 	    	$func->displayMessage("success" , "Kayıt başarıyla eklendi.");
 	    }else{
 	    	$func->displayMessage("danger" , "Kayıt ekleme esnasında bir hata oluştu!");
