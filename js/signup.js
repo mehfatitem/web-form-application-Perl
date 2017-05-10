@@ -35,6 +35,11 @@ function postUrl(url , data , result){
 		data : data,
 		success: function(data, textStatus, jqXHR) {
 			$("#"+result).html(data);
+			$('#listUser').dataTable( {
+				"language":{
+					"url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+				}
+		    });
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
 			console.log("Error : " + errorThrown);
@@ -67,14 +72,13 @@ $(document).ready(function(){
 		if(!isInt(age) || parseInt(age)<=0)
 			warningMessage += "<li>Yaş değeri pozitif bir tam sayı değeri olmalıdır!</li>";
 
-		if(!isExist(warningMessage)){
+		makeVisible("result");
 
-			makeVisible("result");
+		if(!isExist(warningMessage)){
 			messageTemplate = displayMessage("danger" , warningMessage);
 			parseContent("result" , messageTemplate);
 			warningMessage = "";
 		}else{
-			makeVisible("result");
 			var data = {name : name , surname : surname , age : age , gender : gender};
 			var url = "/sample_perl_application/Signup.cgi";
 			var result = "result";
