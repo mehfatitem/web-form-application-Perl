@@ -21,7 +21,7 @@ if($cgi->param('operation') eq "listUser"){
 	my $class = "";
 	my $counter = 0;
 
-	my $template = "<table class='table table-bordered'><caption><b>KULLANICI LİSTESİ</b></caption><thead><tr><th>Ad</th><th>Soyad</th><th>Yaş</th><th>Cinsiyet</th></tr></thead><tbody>";
+	my $template = "<table id='listUser' class='table table-striped table-bordered' cellspacing='0' width='100%'><caption><b>KULLANICI LİSTESİ</b></caption><thead><tr><th>Ad</th><th>Soyad</th><th>Yaş</th><th>Cinsiyet</th></tr></thead><tbody>";
 
 	my $sth = $db->runSql("SELECT * FROM person ORDER BY id DESC");
 
@@ -60,5 +60,6 @@ if($cgi->param('operation') eq "listUser"){
 	}else{
 		$func->displayMessage("warning" , "Herhangi bir kayıt bulunamadı!");
 	}
+}else{
+	print "<img src='http://www.404errorpages.com/images/image003.png' alt='404' Error Pages'>";
 }
-
