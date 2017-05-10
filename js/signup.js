@@ -71,6 +71,8 @@ $(document).ready(function(){
 			warningMessage += "<li>Yaş alanı zorunludur!</li>";
 		if(!isInt(age) || parseInt(age)<=0)
 			warningMessage += "<li>Yaş değeri pozitif bir tam sayı değeri olmalıdır!</li>";
+		if(gender != "1" && gender != "2")
+			warningMessage += "<li>Yanlış cinsiyet seçimi yaptınız!</li>";
 
 		makeVisible("result");
 
