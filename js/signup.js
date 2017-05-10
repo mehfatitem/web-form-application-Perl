@@ -39,7 +39,7 @@ function postUrl(url , data , result){
 				"language":{
 					"url":"//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
 				}
-		    });
+		    	});
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
 			console.log("Error : " + errorThrown);
@@ -57,11 +57,11 @@ $(document).ready(function(){
 	$("#save").click(function(){
 		clearDiv("result");
 		
-		var name 	= $("#name").val().trim();
+		var name    = $("#name").val().trim();
 		var surname = $("#surname").val().trim();
 		var surname = $("#surname").val().trim();
-		var age  	= $("#age").val().trim();
-		var gender	= $('#gender').val().trim();
+		var age     = $("#age").val().trim();
+		var gender  = $('#gender').val().trim();
 		
 		if(isExist(name))
 			warningMessage += "<li>Ad alanı zorunludur!</li>";
