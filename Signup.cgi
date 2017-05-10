@@ -39,6 +39,10 @@ if($func->isPositiveInteger($age) eq "false"){
 	$errorMessage .= "<li>Yaş değeri pozitif bir tam sayı değeri olmalıdır!</li>";
 }
 
+if($gender ne "1" && $gender ne 2){
+	$errorMessage .= "<li>Yanlış cinsiyet seçimi yaptınız!</li>";
+}
+
 if($func->isValExist($errorMessage) eq "true"){
 	$func->displayMessage("danger" , $errorMessage);
 }else{
@@ -47,7 +51,7 @@ if($func->isValExist($errorMessage) eq "true"){
 	my $contact = "<b>".$func->trim($name)." ".$func->trim($surname)."</b>";
 	$contact = $func->decodeUTF8($contact);
 	if($rows>0){
-	    $func->displayMessage("warning" , $contact." isimli kullanıcı sistemde mevcuttur!");
+		$func->displayMessage("warning" , $contact." isimli kullanıcı sistemde mevcuttur!");
 	}else{
 	    my $sth = $db->runSql("INSERT INTO person (name,surname,age,gender) VALUES('$name','$surname','$age', '$gender')");
 	    if($sth){
