@@ -44,7 +44,7 @@ function postUrl(url , data , result){
 		error: function (jqXHR, textStatus, errorThrown) {
 			console.log("Error : " + errorThrown);
 		}
-    });
+    	});
 }
 
 function displayMessage(messageType , messageText){
